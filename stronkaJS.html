@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Zdjecia</title>
+</head>
+<style>
+    #slider {
+        display: flex;
+        /* transform: translate(-100px); */
+    }
+</style>
+
+<body>
+    <input type="text" name="">
+    <button>Pobierz zdjecie</button>
+    <div id="slider">
+        <img src="http://picsum.photos/300/200/?r=1" alt="">
+        <img src="http://picsum.photos/300/200/?r=2" alt="">
+        <img src="http://picsum.photos/300/200/?r=3" alt="">
+        <img src="http://picsum.photos/300/200/?r=4" alt="">
+    </div>
+    <br>
+
+    <script>
+        // wybór obiektu z id slider
+        const slider = document.querySelector('#slider');
+        let polozenie = 0;
+        let czyAnimowac = true;
+
+        // dodanie listenera do najechania myszka na slider
+        slider.addEventListener('mouseover', () => {
+            // clearInterval(animInterval);
+            czyAnimowac = false;
+        });
+        // dodanie listenera do zjechania myszka na slider
+        slider.addEventListener('mouseout', () => {
+            czyAnimowac = true;
+            animacja();
+            // animInterval = setInterval(animacja, 16); // animInterval - przyczep do setInterval (id takie), co 16ms wykonaj animacja
+        })
+
+        // let animInterval = setInterval(animacja, 16);
+            let step = -3;
+        animacja();
+
+        function animacja() {
+            if (polozenie < -600) {
+                step = 3;
+            }
+            if (polozenie > 600) {
+                step = -3;
+            }
+            polozenie += step;
+            slider.style.transform = `translateX(${polozenie}px)`; //ustwaia polozenie dla translateX z dekrementowanej zmiennej polozenie
+            if (czyAnimowac) {
+                requestAnimationFrame(animacja);
+
+            }
+        }
+    </script>
+
+
+
+
+    <!-- <img src="" alt="" id="img">
+    <script>
+        const button = document.querySelector('button');
+        button.addEventListener("click", buttonHandler);
+
+        function buttonHandler() {
+            let input = document.querySelector('input').value;
+            document.querySelector('#img').src = input;
+        }
+
+        // NA STRZAŁKACH:
+        // button.addEventListener("click", ()=>{
+        //     let input = document.querySelector('input').value;
+        //     document.querySelector('#img').src = input;
+        // });
+
+
+    </script> -->
+
+
+
+
+
+
+
+</body>
+
+</html>
