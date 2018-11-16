@@ -8,6 +8,10 @@
     <title>Zdjecia</title>
 </head>
 <style>
+    body {
+        margin: 0;
+    }
+
     #slider {
         display: flex;
         /* transform: translate(-100px); */
@@ -18,17 +22,18 @@
     <input type="text" name="">
     <button>Pobierz zdjecie</button>
     <div id="slider">
-        <img src="http://picsum.photos/300/200/?r=1" alt="">
-        <img src="http://picsum.photos/300/200/?r=2" alt="">
-        <img src="http://picsum.photos/300/200/?r=3" alt="">
-        <img src="http://picsum.photos/300/200/?r=4" alt="">
+        <img src="http://picsum.photos/500/200/?r=1" alt="">
+        <img src="http://picsum.photos/500/200/?r=2" alt="">
+        <img src="http://picsum.photos/500/200/?r=3" alt="">
+        <img src="http://picsum.photos/500/200/?r=4" alt="">
     </div>
     <br>
-
-    <script>
+    
+    <script type="text/javascript">
         // wybór obiektu z id slider
         const slider = document.querySelector('#slider');
         let polozenie = 0;
+        let step = -2;
         let czyAnimowac = true;
 
         // dodanie listenera do najechania myszka na slider
@@ -44,21 +49,20 @@
         })
 
         // let animInterval = setInterval(animacja, 16);
-            let step = -3;
         animacja();
 
         function animacja() {
-            if (polozenie < -600) {
-                step = 3;
+            if (polozenie < -slider.scrollWidth + window.innerWidth) {
+                step = 2;
             }
-            if (polozenie > 600) {
-                step = -3;
+            if (polozenie > 0) {
+                step = -2;
             }
+
             polozenie += step;
             slider.style.transform = `translateX(${polozenie}px)`; //ustwaia polozenie dla translateX z dekrementowanej zmiennej polozenie
             if (czyAnimowac) {
                 requestAnimationFrame(animacja);
-
             }
         }
     </script>
