@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <input id="miastoInput" type="text" name="">
+    <button id="miastoAdd">Dodaj miasto</button>
+    <button id="miastoDelete">Usun miasto</button>
+    <button id="getWeather">Pobierz pogodę</button>
+    <div id="container">
+        Pogoda:
+    </div>
+    <!-- 
+        wymagania do aplikacji:
+        1. pozwól użytkownikowi podac miejscowosc
+        2. zapamietaj tę miejscowosc
+        użyj obiektu localStorage. 
+        Zapisywanie:  localStorage.setItem(klucz, wartosc)
+        Odczytywanie: localStorage.getItem(klucz)
+        Zapisuj w JSONIE (JSON.stringify() i JSON.parse())
+        3. zaczytaj pogode dla wszystkich aktualnie zapamietanych miejscowosci
+        wykorzystaj openweathermap (jest w przykładzie w plikach 75- i 76-)
+        4. wyswietl pogodę (chmurki, ikonki ogólnie) - katalog assets
+        5. pozwol usuwac miejscowosc!
+     -->
+
+    <script>    
+        let miasta = [];
+
+        miastoDelete.addEventListener("click", () => {
+            let miasto = document.querySelector('#miastoInput').value;
+            let index = miasta.indexOf(miasto);
+            if (index > -1) {
+                miasta.splice(index, 1);
+            }
+            localStorage.setItem('miasta', JSON.stringify(miasta));
+        })
+
+        miastoAdd.addEventListener("click", () => {
+            let miasto = document.querySelector('#miastoInput').value;
+            miasta.push(miasto);
+            localStorage.setItem('miasta', JSON.stringify(miasta));
+        })
+
+        getWeather.addEventListener("click", () => JSON.parse(localStorage.getItem("miasta")).forEach(pokazPogode));
+
+        function pokazPogode(miasto) {
+            let weatherOutput = {};
+            const opwApiKey = '50d53005c0fd5f556bb4ef15224c4209'
+            const openWeatherUrl = `http://api.openweathermap.org/data/2.5/weather?q=${miasto}&APPID=${opwApiKey}`
+            const weather = fetch(openWeatherUrl)
+            console.log(weather) // weather to promise (fetch return)
+            weather
+                .then((retVal) => {
+                    console.log('First .then', retVal);
+                    return retVal.json();
+                })
+                .then(retVal2 => {
+                    console.log('Second .then', retVal2);
+                    Object.assign(weatherOutput, retVal2);
+                    let out = {
+                        'Miejsce': retVal2.name,
+                        'Temperatura': retVal2.main.temp,
+                        'Ciśnienie': retVal2.main.pressure,
+                        'Wilgotność': retVal2.humidity
+                    };
+
+                    let showWeatherStats = document.querySelector('#container');
+                    showWeatherStats.innerHTML += "<pre>" + JSON.stringify(out, null, '\t') + "</pre>";
+                })
+                .catch((e) => { console.error('Catched exception: ', e) })
+
+
+            // console.log('type: ', typeof (showWeatherStats));
+        }
+
+    </script>
+
+</body>
+
+</html>
