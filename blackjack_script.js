@@ -282,10 +282,11 @@ function showCardImages(cardString, cardsArray) {
     let spr = cardsToLower.indexOf("<pre>") !== -1;
     console.log(spr);
 
-    let tmp = [];
-    for (let i = 0; i < cardsArray.length; i++) {
-        tmp[i] = cardsArray[i].value + ' of ' + cardsArray[i].suit;
-    }
+    let tmp = cardsArray.map(karta => karta.value + ' of ' + karta.suit)
+
+    // for (let i = 0; i < cardsArray.length; i++) {
+    //     tmp[i] = cardsArray[i].value + ' of ' + cardsArray[i].suit;
+    // }
 
     function checkIfContains(cardsToLower, card) {
         if (cardsToLower.toLowerCase().indexOf(card) !== -1) {
@@ -294,6 +295,9 @@ function showCardImages(cardString, cardsArray) {
         return false;
     }
 
+    let sciezki = {
+        "two of clubs": 
+    }
     for (let i = 0; i < tmp.length; i++) {
         switch (true) {
             case checkIfContains(tmp[i], "two of clubs"):
