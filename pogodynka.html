@@ -30,8 +30,9 @@
         5. pozwol usuwac miejscowosc!
      -->
 
-    <script>    
+    <script>
         let miasta = [];
+        let result = [];
 
         miastoDelete.addEventListener("click", () => {
             let miasto = document.querySelector('#miastoInput').value;
@@ -44,19 +45,28 @@
 
         miastoAdd.addEventListener("click", () => {
             let miasto = document.querySelector('#miastoInput').value;
-            miasta.push(miasto);
-            localStorage.setItem('miasta', JSON.stringify(miasta));
+            if (localStorage.getItem('miasta') === null) {
+                miasta.push(miasto);
+            }
+            else if (!(localStorage.getItem('miasta').indexOf(miasto) > -1))
+            {
+                miasta.push(miasto);
+                localStorage.setItem('miasta', JSON.stringify(miasta));
+            }
         })
 
         getWeather.addEventListener("click", () => {
 
             let showWeatherStats = document.querySelector('#container').innerHTML = '';
-            JSON.parse(localStorage.getItem("miasta")).forEach(pokazPogode);
-        }
-        );
+            
+            for(let el of JSON.parse(localStorage.getItem('miasta'))){
+                console.log(el);
+                pokazPogode(el);
+            }
+        })
 
         function pokazPogode(miasto) {
-            let weatherOutput = {};
+            // let weatherOutput = {};
             const opwApiKey = '50d53005c0fd5f556bb4ef15224c4209'
             const openWeatherUrl = `http://api.openweathermap.org/data/2.5/weather?q=${miasto}&APPID=${opwApiKey}`
             const weather = fetch(openWeatherUrl)
@@ -68,23 +78,29 @@
                 })
                 .then(retVal2 => {
                     console.log('Second .then', retVal2);
-                    Object.assign(weatherOutput, retVal2);
-                    let out = {
+                    // Object.assign(weatherOutput, retVal2);
+                    result.push({
                         'Miejsce': retVal2.name,
                         'Temperatura': retVal2.main.temp,
                         'Ciśnienie': retVal2.main.pressure,
-                        'Wilgotność': retVal2.humidity
-                    };
-
+                        'Wilgotność': retVal2.main.humidity,
+                        'Ogólne': retVal2.weather[0].main
+                    });
+                    localStorage.setItem('result', JSON.stringify(result));
                     let showWeatherStats = document.querySelector('#container');
-                    showWeatherStats.innerHTML += "<pre>" + JSON.stringify(out, null, '\t') + "</pre>";
+                    let divek = document.createElement('div');
+                    divek.innerHTML += 
+                    'Miejsce: ' + result[result.length-1].Miejsce + '<br>' +
+                    'Temperatura: ' + Math.trunc((result[result.length-1].Temperatura - 273)) + ' C <br>' +
+                    'Ciśnienie: ' + result[result.length-1].Ciśnienie + ' hPa <br>' +
+                    'Wilgotność: ' + result[result.length-1].Wilgotność + '<br>' +
+                    'Ogólne: ' + result[result.length-1].Ogólne + '<hr>';
+
+                    showWeatherStats.appendChild(divek);
                 })
                 .catch((e) => { console.error('Catched exception: ', e) })
-
-
             // console.log('type: ', typeof (showWeatherStats));
         }
-
     </script>
 
 </body>
