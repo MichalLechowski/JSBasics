@@ -48,7 +48,12 @@
             localStorage.setItem('miasta', JSON.stringify(miasta));
         })
 
-        getWeather.addEventListener("click", () => JSON.parse(localStorage.getItem("miasta")).forEach(pokazPogode));
+        getWeather.addEventListener("click", () => {
+
+            let showWeatherStats = document.querySelector('#container').innerHTML = '';
+            JSON.parse(localStorage.getItem("miasta")).forEach(pokazPogode);
+        }
+        );
 
         function pokazPogode(miasto) {
             let weatherOutput = {};
