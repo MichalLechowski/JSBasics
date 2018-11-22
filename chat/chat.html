@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="script.js"></script>
+    <style>
+        .hidden {
+            /* display: none; */
+            opacity: 0;
+        }
+
+        #confirm {
+            padding: 20px;
+            background: lightblue;
+            transition: 2s all cubic-bezier(0.075, 0.82, 0.165, 1);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="newMessage">
+        <input type="text" id="author" placeholder="type your name">
+        <input type="text" id="msg" placeholder="type your msg">
+        <button id="send">Wyślij</button>
+        <div id="confirm" class="hidden">Wiadomość wysłana</div>
+    </div>
+    <div id="messages">
+
+    </div>
+</body>
+
+</html>
