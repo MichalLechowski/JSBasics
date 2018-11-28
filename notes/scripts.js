@@ -25,7 +25,14 @@ function appStart() {
 function getSavedNotes() {
     notes = JSON.parse(localStorage.getItem('notes')) || [];
     notesContainer.innerHTML = '';
+    sortNotes();
     showNotes();
+}
+
+function sortNotes() {
+    notes.sort((n1, n2) => {
+        return n2.id - n1.id;
+    })
 }
 
 function updateSavedNotes() {
@@ -43,7 +50,7 @@ function showNotes() {
     })
 }
 
-function addNoteToNotesContainer(note) {
+function addNoteToNotesContainer(note, newNote = false) {
     //wrzuc notatke na strone
     const noteDiv = document.createElement('div');
     noteDiv.classList.add('note');
@@ -56,13 +63,20 @@ function addNoteToNotesContainer(note) {
 
     noteDiv.innerHTML = `
     <img class="imgDelete" src="btnDelete.png" id="note${note.id}">
-    <div class="note-title">${note.title}</div>
+    <div class="note-title">${note.title}:</div>
     <div class="note-content">${note.content}</div>
-    <div class="note-date">${d.toLocaleDateString()}</div>
+    <div class="note-date">${d.toLocaleString()}</div>
     <div class="note-menu></div>
     `
 
-    notesContainer.appendChild(noteDiv);
+
+    if (!newNote) {
+        notesContainer.appendChild(noteDiv);
+    }
+    else {
+        notesContainer.insertBefore(noteDiv, notesContainer.firstChild);
+    }
+
     document.querySelector(`#note${note.id}`).addEventListener('click', () => {
         deleteNote(note.id);
     })
@@ -92,12 +106,12 @@ function newNote() {
         // zapisz w localStorage
         localStorage.setItem('notes', JSON.stringify(notes));
         // wrzucna strone
-        addNoteToNotesContainer(newNote);
+        addNoteToNotesContainer(newNote, true);
     }
     else {
         let errorDiv = document.querySelector('.note-error');
         errorDiv.classList.remove('hidden');
-        setTimeout(function() {
+        setTimeout(function () {
             errorDiv.classList.add('hidden');
         }, 2000);
     }
