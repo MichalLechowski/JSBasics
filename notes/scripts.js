@@ -30,9 +30,23 @@ function getSavedNotes() {
 }
 
 function sortNotes() {
-    notes.sort((n1, n2) => {
+
+    let unpinnedNotes = notes.filter( (note) => note.pinned);
+    let pinnedNotes = notes.filter( note => !note.pinned);
+
+    // notes.sort((n1,n2) => {
+    //     return (n1.pinned === n2.pinned)? 0 : n1.pinned? -1 : 1 
+    // })
+
+    unpinnedNotes.sort((n1, n2) => {
         return n2.id - n1.id;
     })
+
+    pinnedNotes.sort((n1, n2) => {
+        return n2.id - n1.id;
+    })
+
+    notes = [...pinnedNotes, ...unpinnedNotes];
 }
 
 function updateSavedNotes() {
@@ -63,6 +77,7 @@ function addNoteToNotesContainer(note, newNote = false) {
 
     noteDiv.innerHTML = `
     <img class="imgDelete" src="btnDelete.png" id="note${note.id}">
+    <img class="imgPinned" src="imgUnpinned.png" id="pinned${note.id}">
     <div class="note-title">${note.title}:</div>
     <div class="note-content">${note.content}</div>
     <div class="note-date">${d.toLocaleString()}</div>
@@ -79,6 +94,18 @@ function addNoteToNotesContainer(note, newNote = false) {
 
     document.querySelector(`#note${note.id}`).addEventListener('click', () => {
         deleteNote(note.id);
+    })
+
+    document.querySelector(`#pinned${note.id}`).addEventListener('click', () => {
+        let icon = document.querySelector(`#pinned${note.id}`);
+        note.pinned = !note.pinned;
+
+        if (note.pinned) {
+            icon.src = 'imgPinned.png';
+        }
+        else{
+            icon.src = 'imgUnpinned.png';
+        }
     })
 }
 
@@ -129,4 +156,5 @@ function Note(title = '', content = '') {
     this.title = title;
     this.content = content;
     this.id = Date.now();
+    this.pinned = false;
 }

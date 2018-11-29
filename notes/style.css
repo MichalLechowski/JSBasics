@@ -124,7 +124,7 @@ word-break: break-all;
 }
 
 .imgDelete{
-    width: 20px;
+    width: 30px;
 	cursor: pointer;
 }
 
@@ -139,3 +139,10 @@ word-break: break-all;
 .hidden{
     display: none;
 }
+
+.imgPinned{
+	width: 50px;
+	cursor: pointer;
+}
+
+
