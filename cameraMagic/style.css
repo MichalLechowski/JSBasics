@@ -1,0 +1,10 @@
+body {
+    background: aquamarine;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    height: 100%;
+    justify-content: center;
+    width: 100%;
+    flex-direction: column;
+}
