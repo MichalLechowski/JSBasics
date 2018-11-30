@@ -12,25 +12,33 @@
 
 <body>
     <div id="sounds">
-        <div id="a1" class="sound">a</div>
-        <div id="a2" class="sound">s</div>
-        <div id="a3" class="sound">d</div>
-        <div id="a4" class="sound">f</div>
-        <div id="a5" class="sound">g</div>
-        <div id="a6" class="sound">h</div>
-        <div id="a7" class="sound">j</div>
-        <div id="a8" class="sound">k</div>
-        <div id="a9" class="sound">l</div>
+        <div id="a1" class="boom sound">a</div>
+        <div id="a2" class="clap sound">s</div>
+        <div id="a3" class="hihat sound">d</div>
+        <div id="a4" class="kick sound">f</div>
+        <div id="a5" class="openhat sound">g</div>
+        <div id="a6" class="ride sound">h</div>
+        <div id="a7" class="snare sound">j</div>
+        <div id="a8" class="tink sound">k</div>
+        <div id="a9" class="tom sound">l</div>
     </div>
-    <audio autoplay src="sounds/boom.wav" id="boom"></audio>
-    <audio autoplay src="sounds/clap.wav" id="clap"></audio>
-    <audio autoplay src="sounds/hihat.wav" id="hihat"></audio>
-    <audio autoplay src="sounds/kick.wav" id="kick"></audio>
-    <audio autoplay src="sounds/openhat.wav" id="openhat"></audio>
-    <audio autoplay src="sounds/ride.wav" id="ride"></audio>
-    <audio autoplay src="sounds/snare.wav" id="snare"></audio>
-    <audio autoplay src="sounds/tink.wav" id="tink"></audio>
-    <audio autoplay src="sounds/tom.wav" id="tom"></audio>
+
+    <div id="menu">
+        <div id="recordState"></div>
+        <button id="btnPlay">Odtwórz</button>
+        <button id="btnStart">Start</button>
+        <button id="btnStop">Stop</button>
+    </div>
+
+    <audio src="sounds/boom.wav" id="boom"></audio>
+    <audio src="sounds/clap.wav" id="clap"></audio>
+    <audio src="sounds/hihat.wav" id="hihat"></audio>
+    <audio src="sounds/kick.wav" id="kick"></audio>
+    <audio src="sounds/openhat.wav" id="openhat"></audio>
+    <audio src="sounds/ride.wav" id="ride"></audio>
+    <audio src="sounds/snare.wav" id="snare"></audio>
+    <audio src="sounds/tink.wav" id="tink"></audio>
+    <audio src="sounds/tom.wav" id="tom"></audio>
 </body>
 
 </html>
