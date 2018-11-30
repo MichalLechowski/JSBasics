@@ -8,6 +8,13 @@ function appStart() {
     canvas = document.querySelector('#magicCanvas')
     ctx = canvas.getContext('2d')
 
+    btnPhoto = document.querySelector(`#btnPhoto`);
+    btnPhoto.addEventListener('click', () => {
+        const photo = document.querySelector('#photo');
+        const image = canvas.toDataURL('image/jpeg');
+        photo.src = image;
+    })
+
 
     navigator.mediaDevices.getUserMedia({ video: true, audio: false })
         .then(mediaStream => {
