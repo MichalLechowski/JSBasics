@@ -1,0 +1,36 @@
+body{
+    background-color: blanchedalmond;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+div{
+    position: absolute;
+}
+
+#alert{
+    visibility: hidden;
+}
+
+#ball{
+    margin: 0px;
+    padding: 0px;
+    border-radius: 50%;
+    border: 2px solid rgb(212, 203, 49);
+    width: 50px;
+    height: 50px;   
+    background: linear-gradient(to right, #FF0000, #FFF200, #1E9600);    
+    top: calc(50%-25px);
+    left: calc(50%-25px);
+}
+
+#hole{
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 2px solid black;
+    background: radial-gradient(grey, whitesmoke);
+    top: calc(50% - 40px);
+    left: calc(50% - 40px);
+}
